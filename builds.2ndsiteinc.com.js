@@ -27,7 +27,7 @@ var right = function(text) {
 };
 
 var rewriteBuildQueue = function(table) {
-	table.find('.pane:first-child').each(function() {
+	table.find('.pane:first-child a').each(function() {
 		var elem = $(this);
 
 		var text = elem.attr('tooltip').replace(/\(StringParameterValue\) /g, '');
@@ -50,7 +50,7 @@ var rewriteBuildQueue = function(table) {
 			var siblings = parent.siblings('[data-pr=' + pr + ']')
 				.css({backgroundColor: 'rgba(255, 0, 0, .1)'});
 			if (siblings.length) {
-				elem.css({backgroundColor: 'rgba(0, 0, 255, .05)'});
+				elem.parent().css({backgroundColor: 'rgba(0, 0, 255, .05)'});
 			}
 			output = [
 				[link(url, '# ' + pr), right(sha)].join(' '),
