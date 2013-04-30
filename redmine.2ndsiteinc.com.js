@@ -1,25 +1,30 @@
 /*jslint smarttabs:true */
 /*global include */
+(function() {
+	"use strict";
 
 var HighlightStatus = {
+
 	getStatusColor:function(statusText) {
-		console.log('getting color for', statusText);
+		// console.log('getting color for', statusText);
 		switch (statusText) {
 		case 'Closed':
 		case 'Deployed':
-			return 'rgba(0, 128, 0, .7)'; // Green
+			return 'rgb(32, 96, 32)'; // Green @ 50% saturation
 		case 'Resolved':
 		case 'In Testing':
 		case 'Ready for testing on Trunk':
-			return 'rgba(0, 0, 255, .7)'; // Blue
+			return 'rgb(64, 64, 191)'; // Blue @ 50% saturation
 		case 'Ready for testing on RC':
-			return 'rgba(140, 0, 255, .7)'; // Purple
+			return 'rgb(134, 64, 191)'; // Purple @ 50% saturation
 		case 'Rejected':
 			return 'rgba(0, 0, 0, .7)'; // Black
+		case 'Triaged':
+			return 'rgb(193, 143, 68)'; // Orange @ 50% saturation
 		case 'New':
 		case 'Assigned':
 		default:
-			return 'rgba(255, 0, 0, .65)'; // Red
+			return 'rgb(191, 64, 64)'; // Red @ 50% saturation
 		}
 	},
 	getClassMapping: function() {
@@ -41,7 +46,7 @@ var HighlightStatus = {
 			'backgroundColor':HighlightStatus.getStatusColor(text),
 			'color':'white',
 			'white-space': 'normal',
-			'text-shadow': '0px 0px 1px #000'
+			'text-shadow': '#000 0px 0px 3px'
 		};
 	},
 	getForegroundCSSAttrs: function(text) {
@@ -77,7 +82,7 @@ var HighlightStatus = {
 		$('.attributes .status').css(HighlightStatus.getBackgroundCSSAttrs(
 			$('.attributes .status')[1].innerText
 		));
-		$('#relations .status').each(function() {
+		$('#relations .status, #issue_tree td:nth-child(3)').each(function() {
 			var _this = $(this);
 			_this.css(HighlightStatus.getBackgroundCSSAttrs(
 				this.innerText
@@ -211,5 +216,4 @@ function formatReleaseDate(date) {
 	 return formatFutureReleaseDate(now, then);
 }
 
-
-
+})();
